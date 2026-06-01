@@ -7,6 +7,7 @@ Each folder represents a different stage of learning and backend development con
 
 - day1/ → Basic FastAPI setup and simple routes
 - day2/ → Pydantic Models and Shop API v2 project
+- day3/ → Response Models, Pydantic Validation and Library API project
 
 ## Goal
 
