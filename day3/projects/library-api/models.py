@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class LibraryAPIStatus(BaseModel):
     name: str = "Library API"
@@ -6,15 +6,16 @@ class LibraryAPIStatus(BaseModel):
     status: str = "Online!"
 
 class BookModel(BaseModel):
-    title: str
-    author: str
-    year: int
-    pages: int
+    title: str = Field(min_length=1) 
+    author: str = Field(min_length=1)
+    year: int = Field(gt=0, description="The year must be greater than zero")
+    pages: int = Field(gt=0, description="The pages must be greater than zero")
+    available: bool = False
 
 class BookCreation(BookModel):
     id: int
 
 
-class BookCreationUpdateResponse(BookModel):
+class BookCreationUpdateResponse(BaseModel):
     message: str
     data: BookCreation
