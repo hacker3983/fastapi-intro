@@ -2,15 +2,11 @@ from typing import Annotated
 from pydantic import BaseModel
 from pydantic import Field
 
-class User(BaseModel):
-    username: str
-    email: str | None = None
-    full_name: str | None = None
-    disabled: bool | None = None
-
 class UserCreationRequest(BaseModel):
     username: str = Field(min_length=1, max_length=100)
+    full_name: str = Field(min_lenth=1)
     password: str = Field(min_length=8)
+    password_confirmation: str = Field(min_length=8)
 
 class ProductCreationRequest(BaseModel):
     name: str = Field(min_length=1, max_length=100)

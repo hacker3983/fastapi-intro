@@ -1,2 +1,3 @@
 fastapi[standard]
-SQLAlchemy
+pyjwt
+pwdlib[argon2]
