@@ -1,0 +1,45 @@
+from typing import List
+from datetime import datetime
+from sqlalchemy import Integer, String
+from sqlalchemy import DateTime
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import relationship
+
+class Base(DeclarativeBase):
+    pass
+
+class User(Base):
+    __tablename__ = "user_account"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    username: Mapped[str]
+    password_hash: Mapped[str]
+    role: Mapped[str] = mapped_column(String, nullable=True)
+    books: Mapped[List["Books"]] = relationship(back_populates="user")
+
+    def __repr__(self):
+        return f"User(id={self.id!r}, username={self.username!r}, password_hash={self.password_hash!r}, books={self.books!r})"
+
+
+class Books(Base):
+    __tablename__ = "books"
+    
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("user_account.id"))
+
+    title: Mapped[str]
+    author: Mapped[str]
+    year: Mapped[int]
+    pages: Mapped[int]
+    available: Mapped[bool]
+
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+    deleted_at: Mapped[datetime] = mapped_column(DateTime, nullable=True)
+
+    user: Mapped[User] = relationship(back_populates="books")
+
+    def __repr__(self):
+        return f"Book(id={self.id!r}, user_id={self.user_id!r}, title={self.title!r}, author={self.author!r}, year={self.year!r}, pages={self.pages!r}, available={self.available!r})"
