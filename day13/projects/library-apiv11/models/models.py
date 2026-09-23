@@ -6,5 +6,5 @@ from .errors import *
 
 class LibraryAPIStatus(BaseModel):
     name: str = "Library API"
-    version: float = 1.0
+    version: float = 1.1
     status: str = "Online!"
