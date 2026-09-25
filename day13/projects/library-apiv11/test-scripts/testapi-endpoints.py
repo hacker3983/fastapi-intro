@@ -1,6 +1,6 @@
 import requests
 
-api_url = "http://localhost:8000/api/v10"
+api_url = "http://localhost:8000/api/v11"
 user_data = {
         "username": None,
         "logged_in": False,
